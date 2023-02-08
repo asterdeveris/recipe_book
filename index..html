@@ -34,7 +34,7 @@
             <a href="#" id="edit">
               <i class="fa-regular fa-pen-to-square"></i>
             </a>
-            <a href="#" id="add-recipe">
+            <a href="./pages/add-recipe.html" id="add-recipe" target="_parent">
               <i class="fa-regular fa-square-plus"></i>
             </a>
           </div>
@@ -81,6 +81,33 @@
           </ol>
         </div>
       </div>
+      <form class="form">
+        <div class="form-header">
+          <h2>New recipe</h2>
+          <button class="close"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+
+        <label for="recipe-name">Recipe name</label>
+        <input type="text" id="recipe-name" name="recipe-name" />
+        <label for="ingridients">Ingredients</label>
+        <textarea
+          type="text"
+          id="ingridients"
+          name="ingridients"
+          rows="4"
+        ></textarea>
+        <label for="directions">Directions</label>
+        <textarea
+          type="text"
+          id="directions"
+          name="directions"
+          rows="4"
+        ></textarea>
+        <div class="form-buttons">
+          <input type="submit" value="Add" />
+          <input type="reset" value="Clean" />
+        </div>
+      </form>
     </div>
   </body>
 </html>
