@@ -3,6 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Raleway"
+    />
+    <script
+      src="https://kit.fontawesome.com/934a274af7.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Recipe Book</title>
   </head>
   <body>
@@ -11,12 +19,25 @@
       <ul class="list-of-recepies">
         <li>First</li>
         <li>Second</li>
+        <li>First</li>
+        <li>Second</li>
+        <li>First</li>
+        <li>Second</li>
       </ul>
       <div class="recipe">
         <div class="recipe-header">
           <h2>Artichoke Dip</h2>
-          <button id="delete"></button>
-          <button id="edit"></button>
+          <div class="buttons">
+            <button id="delete">
+              <i class="fa-regular fa-trash-can"></i>
+            </button>
+            <a href="#" id="edit">
+              <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+            <a href="#" id="add-recipe">
+              <i class="fa-regular fa-square-plus"></i>
+            </a>
+          </div>
         </div>
         <div class="recipe-directions">
           <h3>Ingredients:</h3>
