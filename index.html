@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="styles/style.css" />
     <link
       rel="stylesheet"
@@ -15,33 +16,30 @@
   </head>
   <body>
     <div class="container">
-      <h1>Your recipe Book</h1>
-      <ul class="list-of-recepies">
-        <li>First</li>
-        <li>Second</li>
-        <li>First</li>
-        <li>Second</li>
-        <li>First</li>
-        <li>Second</li>
-      </ul>
+      <div>
+        <h1>Your recipe Book</h1>
+        <ul class="list-of-recepies">
+          <li>Your recepies...</li>
+        </ul>
+      </div>
       <div class="recipe">
         <div class="recipe-header">
-          <h2>Artichoke Dip</h2>
+          <h2 class="recipe-header-h">Artichoke Dip</h2>
           <div class="buttons">
             <button id="delete">
               <i class="fa-regular fa-trash-can"></i>
             </button>
-            <a href="#" id="edit">
+            <button href="#" id="edit">
               <i class="fa-regular fa-pen-to-square"></i>
-            </a>
-            <a href="#" id="add-recipe">
+            </button>
+            <button id="add-recipe" target="_parent">
               <i class="fa-regular fa-square-plus"></i>
-            </a>
+            </button>
           </div>
         </div>
         <div class="recipe-directions">
           <h3>Ingredients:</h3>
-          <ul>
+          <ul class="recipe-ingridients-list">
             <li>1 8oz package soft cream cheese</li>
             <li>4oz mayonnaise</li>
             <li>4oz sour cream</li>
@@ -54,7 +52,7 @@
             <li>1 tbs fresh minced garlic</li>
           </ul>
           <h3>Directions:</h3>
-          <ol type="1">
+          <ol type="1" class="recipe-directions-list">
             <li>Soften the cream cheese before mixing.</li>
             <li>
               Rinse well, then dice the artichokes into small ½” size pieces.
@@ -81,6 +79,44 @@
           </ol>
         </div>
       </div>
+      <form class="form hide">
+        <div class="form-header">
+          <h2>New recipe</h2>
+          <div class="close-button">
+            <label for="close"><i class="fa-solid fa-xmark"></i></label>
+            <input type="button" id="close" />
+          </div>
+        </div>
+
+        <label for="recipe-name">Recipe name</label>
+        <input
+          type="text"
+          id="recipe-name"
+          name="recipe-name"
+          placeholder="Recipe name"
+        />
+        <label for="ingridients">Ingredients</label>
+        <textarea
+          type="text"
+          id="ingridients"
+          name="ingridients"
+          rows="4"
+          placeholder="Write each ingridient on the separate line"
+        ></textarea>
+        <label for="directions">Directions</label>
+        <textarea
+          type="text"
+          id="directions"
+          name="directions"
+          rows="4"
+          placeholder="Write each direction on the separate line"
+        ></textarea>
+        <div class="form-buttons">
+          <input type="submit" value="Add" />
+          <input type="reset" value="Clean" />
+        </div>
+      </form>
     </div>
   </body>
+  <script src="./script.js"></script>
 </html>
