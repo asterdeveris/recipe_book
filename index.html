@@ -24,7 +24,7 @@
       </div>
       <div class="recipe">
         <div class="recipe-header">
-          <h2 class="recipe-header-h">Artichoke Dip</h2>
+          <h2 class="recipe-header-h"></h2>
           <div class="buttons">
             <button id="delete">
               <i class="fa-regular fa-trash-can"></i>
@@ -112,7 +112,47 @@
           placeholder="Write each direction on the separate line"
         ></textarea>
         <div class="form-buttons">
-          <input type="submit" />
+          <input type="submit" value="Add" />
+          <input type="reset" value="Clean" />
+        </div>
+      </form>
+
+      <form class="form hide editing-form">
+        <div class="form-header">
+          <h2>Recipe</h2>
+          <div class="close-button">
+            <label for="editing-form-close"
+              ><i class="fa-solid fa-xmark"></i
+            ></label>
+            <input type="button" id="editing-form-close" />
+          </div>
+        </div>
+
+        <label for="recipe-name">Recipe name</label>
+        <input
+          type="text"
+          id="editing-form-recipe-name"
+          name="recipe-name"
+          placeholder="Recipe name"
+        />
+        <label for="ingridients">Ingredients</label>
+        <textarea
+          type="text"
+          id="editing-form-ingridients"
+          name="ingridients"
+          rows="4"
+          placeholder="Write each ingridient on the separate line"
+        ></textarea>
+        <label for="directions">Directions</label>
+        <textarea
+          type="text"
+          id="editing-form-directions"
+          name="directions"
+          rows="4"
+          placeholder="Write each direction on the separate line"
+        ></textarea>
+        <div class="form-buttons">
+          <input type="submit" value="Save" name="save" />
           <input type="reset" value="Clean" />
         </div>
       </form>
