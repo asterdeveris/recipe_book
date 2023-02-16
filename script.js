@@ -5,8 +5,6 @@ const form = document.querySelector(".form");
 const recipeNameForm = document.getElementById("recipe-name");
 const ingridientsForm = document.getElementById("ingridients");
 const directionsForm = document.getElementById("directions");
-const closeButtons = document.querySelectorAll(".close-button");
-console.log(closeButtons);
 const submitButton = document.querySelector("[type='submit']");
 
 // Inside editing recipe form variables
@@ -15,6 +13,8 @@ const recipeNameEdForm = document.getElementById("editing-form-recipe-name");
 const ingridientsEdForm = document.getElementById("editing-form-ingridients");
 const directionsEdForm = document.getElementById("editing-form-directions");
 const saveButton = document.querySelector("[name='save']");
+
+const closeButtons = document.querySelectorAll(".close-button");
 
 // Find buttons for editing list and recepies
 const addButton = document.querySelector("#add-recipe");
@@ -41,11 +41,36 @@ function openForm(e) {
   }
 }
 
-function addRecipe(e) {
-  e.preventDefault();
-  const name = recipeNameForm.value;
-  const ingridients = ingridientsForm.value.split("\n");
-  const directions = directionsForm.value.split("\n");
+function openEditingRecipe(e) {
+  const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
+
+  const editingRecipe = recipeStore.find(
+    (el) => el.name === recipeHeader.innerHTML
+  );
+
+  const { ingridients, directions } = editingRecipe;
+
+  ingridientsEdForm.value = ingridients
+    .map((ingridient) => {
+      return `${ingridient}\n`;
+    })
+    .join("");
+
+  recipeNameEdForm.value = recipeHeader.innerHTML;
+
+  directionsEdForm.value = directions
+    .map((direction) => {
+      return `${direction}\n`;
+    })
+    .join("");
+
+  editingForm.classList.remove("hide");
+}
+
+function createRecipe(input1, input2, input3) {
+  const name = input1.value;
+  const ingridients = input2.value.trim().split("\n");
+  const directions = input3.value.trim().split("\n");
 
   const recipe = {
     name,
@@ -53,12 +78,43 @@ function addRecipe(e) {
     directions,
   };
 
+  return recipe;
+}
+
+function addRecipe(e) {
+  e.preventDefault();
+
+  const recipe = createRecipe(recipeNameForm, ingridientsForm, directionsForm);
+
   const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
-  console.log(recipeStore);
   recipeStore.push(recipe);
+
   populateListOfRecepies(recipeStore, listOfRecepies);
   localStorage.setItem("recipeStore", JSON.stringify(recipeStore));
   e.target.reset();
+}
+
+function addEdditedRecipe(e) {
+  e.preventDefault();
+
+  const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
+  const ind = recipeStore.findIndex((el) => el.name === recipeHeader.innerHTML);
+
+  const recipe = createRecipe(
+    recipeNameEdForm,
+    ingridientsEdForm,
+    directionsEdForm
+  );
+
+  const newRecipeStore = [
+    ...recipeStore.slice(0, ind),
+    recipe,
+    ...recipeStore.slice(ind + 1),
+  ];
+
+  localStorage.setItem("recipeStore", JSON.stringify(newRecipeStore));
+  showRecipe(recipe.name, newRecipeStore);
+  populateListOfRecepies(newRecipeStore, listOfRecepies);
 }
 
 function populateListOfRecepies(recepies, recepiesList) {
@@ -69,12 +125,6 @@ function populateListOfRecepies(recepies, recepiesList) {
         `;
     })
     .join("");
-}
-
-function closeModal(e) {
-  form.classList.add("hide");
-  editingForm.classList.add("hide");
-  form.reset();
 }
 
 function showRecipe(recipeName, recipeStore) {
@@ -97,59 +147,18 @@ function showRecipe(recipeName, recipeStore) {
     .join("");
 }
 
-function openEditingRecipe(e) {
-  const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
-
-  const editingRecipe = recipeStore.find(
-    (el) => el.name === recipeHeader.innerHTML
-  );
-  const ind = recipeStore.findIndex((el) => el.name === recipeHeader.innerHTML);
-
-  const { ingridients, directions } = editingRecipe;
-
-  ingridientsEdForm.value = ingridients
-    .map((ingridient) => {
-      return `${ingridient}\n`;
-    })
-    .join("");
-
-  recipeNameEdForm.value = recipeHeader.innerHTML;
-
-  directionsEdForm.value = directions
-    .map((direction) => {
-      return `${direction}\n`;
-    })
-    .join("");
-
-  editingForm.classList.remove("hide");
-
-  saveButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    const name = recipeNameEdForm.value;
-    const ingridients = ingridientsEdForm.value.trim().split("\n");
-    const directions = directionsEdForm.value.trim().split("\n");
-
-    const recipe = {
-      name,
-      ingridients,
-      directions,
-    };
-
-    const newRecipeStore = [
-      ...recipeStore.slice(0, ind),
-      recipe,
-      ...recipeStore.slice(ind + 1),
-    ];
-
-    localStorage.setItem("recipeStore", JSON.stringify(newRecipeStore));
-    showRecipe(recipe.name, newRecipeStore);
-    populateListOfRecepies(newRecipeStore, listOfRecepies);
-  });
+function closeModal(e) {
+  form.classList.add("hide");
+  editingForm.classList.add("hide");
+  form.reset();
 }
 
+// Event Listeners
 addButton.addEventListener("click", openForm);
+editButton.addEventListener("click", openForm);
 
 form.addEventListener("submit", addRecipe);
+editingForm.addEventListener("submit", addEdditedRecipe);
 
 closeButtons.forEach((button) => button.addEventListener("click", closeModal));
 
@@ -159,7 +168,7 @@ listOfRecepies.addEventListener("click", (e) =>
     JSON.parse(localStorage.getItem("recipeStore"))
   )
 );
-editButton.addEventListener("click", openForm);
+
 populateListOfRecepies(
   JSON.parse(localStorage.getItem("recipeStore")) || [],
   listOfRecepies
