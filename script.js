@@ -1,4 +1,7 @@
 const listOfRecepies = document.querySelector(".list-of-recepies");
+const closeButtons = document.querySelectorAll(".close-button");
+const deleteButton = document.querySelector("#delete");
+const darkBackground = document.querySelector(".background");
 
 // Inside add recipe form variables
 const form = document.querySelector(".form");
@@ -14,8 +17,6 @@ const ingridientsEdForm = document.getElementById("editing-form-ingridients");
 const directionsEdForm = document.getElementById("editing-form-directions");
 const saveButton = document.querySelector("[name='save']");
 
-const closeButtons = document.querySelectorAll(".close-button");
-
 // Find buttons for editing list and recepies
 const addButton = document.querySelector("#add-recipe");
 const editButton = document.querySelector("#edit");
@@ -28,9 +29,10 @@ const directionsList = document.querySelector(".recipe-directions-list");
 onLoading();
 
 function onLoading() {
-  const recipeStorage = JSON.parse(localStorage.getItem("recipeStore")) || [];
-  populateListOfRecepies(recipeStorage, listOfRecepies);
-  showRecipe(recipeStorage[0].name, recipeStorage);
+  const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
+  populateListOfRecepies(recipeStore, listOfRecepies);
+  const recipeName = recipeStore.length > 0 ? recipeStore[0].name : "";
+  showRecipe(recipeName, recipeStore);
 }
 
 function openForm(e) {
@@ -39,6 +41,7 @@ function openForm(e) {
   } else if (e.target.parentElement === editButton) {
     openEditingRecipe();
   }
+  darkBackground.classList.remove("hide");
 }
 
 function openEditingRecipe(e) {
@@ -91,6 +94,7 @@ function addRecipe(e) {
 
   populateListOfRecepies(recipeStore, listOfRecepies);
   localStorage.setItem("recipeStore", JSON.stringify(recipeStore));
+  showRecipe(recipe.name, recipeStore);
   e.target.reset();
 }
 
@@ -128,6 +132,11 @@ function populateListOfRecepies(recepies, recepiesList) {
 }
 
 function showRecipe(recipeName, recipeStore) {
+  if (recipeName === "") {
+    recipeHeader.innerHTML = "Add new recipe";
+    return;
+  }
+
   const recipe = recipeStore.find((el) => el.name === recipeName);
 
   const { name, ingridients, directions } = recipe;
@@ -147,15 +156,42 @@ function showRecipe(recipeName, recipeStore) {
     .join("");
 }
 
-function closeModal(e) {
+function closeModal() {
   form.classList.add("hide");
   editingForm.classList.add("hide");
+  darkBackground.classList.add("hide");
   form.reset();
+}
+
+function confirmDelete() {
+  if (
+    confirm(
+      "Are your sure you want to delete this recipe from Recipe book?"
+    ) === true
+  ) {
+    deleteRecipe();
+  }
+}
+
+function deleteRecipe() {
+  const recipeStore = JSON.parse(localStorage.getItem("recipeStore"));
+  const ind = recipeStore.findIndex((el) => el.name === recipeHeader.innerHTML);
+
+  const newRecipeStore = [
+    ...recipeStore.slice(0, ind),
+    ...recipeStore.slice(ind + 1),
+  ];
+
+  localStorage.setItem("recipeStore", JSON.stringify(newRecipeStore));
+  populateListOfRecepies(newRecipeStore, listOfRecepies);
+  const recipeName = recipeStore.length > 0 ? recipeStore[0].name : "";
+  showRecipe(recipeName, recipeStore);
 }
 
 // Event Listeners
 addButton.addEventListener("click", openForm);
 editButton.addEventListener("click", openForm);
+deleteButton.addEventListener("click", confirmDelete);
 
 form.addEventListener("submit", addRecipe);
 editingForm.addEventListener("submit", addEdditedRecipe);

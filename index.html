@@ -18,9 +18,7 @@
     <div class="container">
       <div>
         <h1>Your recipe Book</h1>
-        <ul class="list-of-recepies">
-          <li>Your recepies...</li>
-        </ul>
+        <ul class="list-of-recepies"></ul>
       </div>
       <div class="recipe">
         <div class="recipe-header">
@@ -60,6 +58,7 @@
           id="recipe-name"
           name="recipe-name"
           placeholder="Recipe name"
+          required
         />
         <label for="ingridients">Ingredients</label>
         <textarea
@@ -68,6 +67,7 @@
           name="ingridients"
           rows="4"
           placeholder="Write each ingridient on the separate line"
+          required
         ></textarea>
         <label for="directions">Directions</label>
         <textarea
@@ -76,6 +76,7 @@
           name="directions"
           rows="4"
           placeholder="Write each direction on the separate line"
+          required
         ></textarea>
         <div class="form-buttons">
           <input type="submit" value="Add" />
@@ -100,6 +101,7 @@
           id="editing-form-recipe-name"
           name="recipe-name"
           placeholder="Recipe name"
+          required
         />
         <label for="ingridients">Ingredients</label>
         <textarea
@@ -108,6 +110,7 @@
           name="ingridients"
           rows="4"
           placeholder="Write each ingridient on the separate line"
+          required
         ></textarea>
         <label for="directions">Directions</label>
         <textarea
@@ -116,6 +119,7 @@
           name="directions"
           rows="4"
           placeholder="Write each direction on the separate line"
+          required
         ></textarea>
         <div class="form-buttons">
           <input type="submit" value="Save" name="save" />
@@ -123,6 +127,7 @@
         </div>
       </form>
     </div>
+    <div class="background hide"></div>
   </body>
   <script src="./script.js"></script>
 </html>
