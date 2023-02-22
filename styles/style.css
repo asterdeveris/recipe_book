@@ -133,12 +133,12 @@ body::before {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #2a635e;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #888888;
 }
 
 /* Handle on hover */
@@ -168,22 +168,25 @@ h1::after {
   margin-right: auto;
 }
 
-.list-of-recepies {
+.list-of-recepes {
   background-color: #2a635e;
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 15px;
   color: white;
   line-height: 1.5rem;
-  height: 100px;
-  overflow-y: scroll;
+  height: 150px;
 }
-.list-of-recepies li {
+.list-of-recepes ul {
+  overflow-y: scroll;
+  max-height: 70%;
+}
+.list-of-recepes ul li {
   cursor: pointer;
   transition-duration: 400ms;
   transition-timing-function: ease-out;
 }
-.list-of-recepies li:hover {
+.list-of-recepes ul li:hover {
   -webkit-text-decoration: underline #f86d46;
           text-decoration: underline #f86d46;
   text-underline-offset: 4px;
@@ -199,7 +202,42 @@ h1::after {
   line-height: 1.2rem;
   border-radius: 15px;
   max-height: 600px;
-  overflow-y: scroll;
+}
+
+.tooltips {
+  background-color: #e8522a;
+  z-index: 6;
+  position: relative;
+  width: 100%;
+}
+.tooltips p {
+  width: 120px;
+  background-color: #173c34;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  top: -38px;
+}
+.tooltips #tooltip-delete {
+  right: -5px;
+}
+.tooltips #tooltip-add {
+  right: -50px;
+}
+.tooltips #tooltip-edit {
+  right: -25px;
+}
+.tooltips p::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #173c34 transparent transparent transparent;
 }
 
 .recipe-header {
@@ -237,6 +275,8 @@ i {
   line-height: 1.2rem;
   padding: 10px 100px 10px 0;
   margin-bottom: 15px;
+  overflow-y: scroll;
+  max-height: 70%;
 }
 .recipe-directions ul {
   margin-bottom: 15px;
@@ -262,6 +302,7 @@ i {
   border-radius: 15px;
   background-color: #eee1d1;
   box-shadow: -1px -1px 41px -11px rgb(23, 60, 52);
+  max-height: 70vh;
 }
 .form label {
   margin-bottom: 10px;
@@ -270,6 +311,7 @@ i {
 .form textarea {
   margin-bottom: 15px;
   padding: 10px;
+  max-width: 100%;
 }
 .form .form-header {
   display: flex;

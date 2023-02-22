@@ -1,7 +1,8 @@
-const listOfRecepies = document.querySelector(".list-of-recepies");
+const listOfRecepes = document.querySelector(".list-of-recepes-ul");
 const closeButtons = document.querySelectorAll(".close-button");
 const deleteButton = document.querySelector("#delete");
 const darkBackground = document.querySelector(".background");
+const buttons = document.querySelector(".buttons");
 
 // Inside add recipe form variables
 const form = document.querySelector(".form");
@@ -17,7 +18,7 @@ const ingridientsEdForm = document.getElementById("editing-form-ingridients");
 const directionsEdForm = document.getElementById("editing-form-directions");
 const saveButton = document.querySelector("[name='save']");
 
-// Find buttons for editing list and recepies
+// Find buttons for editing list and recepes
 const addButton = document.querySelector("#add-recipe");
 const editButton = document.querySelector("#edit");
 
@@ -30,7 +31,7 @@ onLoading();
 
 function onLoading() {
   const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
-  populateListOfRecepies(recipeStore, listOfRecepies);
+  populateListOfRecepes(recipeStore, listOfRecepes);
   const recipeName = recipeStore.length > 0 ? recipeStore[0].name : "";
   showRecipe(recipeName, recipeStore);
 }
@@ -92,7 +93,7 @@ function addRecipe(e) {
   const recipeStore = JSON.parse(localStorage.getItem("recipeStore")) || [];
   recipeStore.push(recipe);
 
-  populateListOfRecepies(recipeStore, listOfRecepies);
+  populateListOfRecepes(recipeStore, listOfRecepes);
   localStorage.setItem("recipeStore", JSON.stringify(recipeStore));
   showRecipe(recipe.name, recipeStore);
   e.target.reset();
@@ -118,11 +119,11 @@ function addEdditedRecipe(e) {
 
   localStorage.setItem("recipeStore", JSON.stringify(newRecipeStore));
   showRecipe(recipe.name, newRecipeStore);
-  populateListOfRecepies(newRecipeStore, listOfRecepies);
+  populateListOfRecepes(newRecipeStore, listOfRecepes);
 }
 
-function populateListOfRecepies(recepies, recepiesList) {
-  recepiesList.innerHTML = recepies
+function populateListOfRecepes(recepes, recepesList) {
+  recepesList.innerHTML = recepes
     .map((recipe) => {
       return `
         <li>${recipe.name}</li>
@@ -183,7 +184,7 @@ function deleteRecipe() {
   ];
 
   localStorage.setItem("recipeStore", JSON.stringify(newRecipeStore));
-  populateListOfRecepies(newRecipeStore, listOfRecepies);
+  populateListOfRecepes(newRecipeStore, listOfRecepes);
   const recipeName = recipeStore.length > 0 ? recipeStore[0].name : "";
   showRecipe(recipeName, recipeStore);
 }
@@ -192,20 +193,40 @@ function deleteRecipe() {
 addButton.addEventListener("click", openForm);
 editButton.addEventListener("click", openForm);
 deleteButton.addEventListener("click", confirmDelete);
+// addButton.addEventListener("mouseover");
+// editButton.addEventListener("mouseover");
+deleteButton.addEventListener("mouseover", () => {
+  document.getElementById("tooltip-delete").classList.remove("hide");
+});
+deleteButton.addEventListener("mouseleave", () => {
+  document.getElementById("tooltip-delete").classList.add("hide");
+});
+addButton.addEventListener("mouseover", () => {
+  document.getElementById("tooltip-add").classList.remove("hide");
+});
+addButton.addEventListener("mouseleave", () => {
+  document.getElementById("tooltip-add").classList.add("hide");
+});
+editButton.addEventListener("mouseover", () => {
+  document.getElementById("tooltip-edit").classList.remove("hide");
+});
+editButton.addEventListener("mouseleave", () => {
+  document.getElementById("tooltip-edit").classList.add("hide");
+});
 
 form.addEventListener("submit", addRecipe);
 editingForm.addEventListener("submit", addEdditedRecipe);
 
 closeButtons.forEach((button) => button.addEventListener("click", closeModal));
 
-listOfRecepies.addEventListener("click", (e) =>
+listOfRecepes.addEventListener("click", (e) =>
   showRecipe(
     e.target.innerHTML,
     JSON.parse(localStorage.getItem("recipeStore"))
   )
 );
 
-populateListOfRecepies(
+populateListOfRecepes(
   JSON.parse(localStorage.getItem("recipeStore")) || [],
-  listOfRecepies
+  listOfRecepes
 );

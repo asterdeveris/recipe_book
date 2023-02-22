@@ -18,19 +18,27 @@
     <div class="container">
       <div>
         <h1>Your recipe Book</h1>
-        <ul class="list-of-recepies"></ul>
+        <div class="list-of-recepes">
+          <h2 id="list-of-recepes-header">Choose recipe:</h2>
+          <ul class="list-of-recepes-ul"></ul>
+        </div>
       </div>
       <div class="recipe">
+        <div class="tooltips">
+          <p class="hide" id="tooltip-delete">Delete recipe</p>
+          <p class="hide" id="tooltip-edit">Edit recipe</p>
+          <p class="hide" id="tooltip-add">Add recipe</p>
+        </div>
         <div class="recipe-header">
           <h2 class="recipe-header-h"></h2>
           <div class="buttons">
             <button id="delete">
               <i class="fa-regular fa-trash-can"></i>
             </button>
-            <button href="#" id="edit">
+            <button id="edit">
               <i class="fa-regular fa-pen-to-square"></i>
             </button>
-            <button id="add-recipe" target="_parent">
+            <button id="add-recipe">
               <i class="fa-regular fa-square-plus"></i>
             </button>
           </div>

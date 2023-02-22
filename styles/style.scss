@@ -98,6 +98,7 @@ body::after {
   pointer-events: none;
   content: "";
 }
+
 body::before {
   z-index: -1;
   position: absolute;
@@ -120,12 +121,12 @@ body::before {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: #2a635e;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888;
+  background: #888888;
 }
 
 /* Handle on hover */
@@ -155,27 +156,30 @@ h1::after {
   margin-right: auto;
 }
 
-.list-of-recepies {
+.list-of-recepes {
   background-color: #2a635e;
   border-radius: 15px;
   padding: 25px;
   margin-bottom: 15px;
   color: white;
   line-height: 1.5rem;
-  height: 100px;
-  overflow-y: scroll;
+  height: 150px;
 
-  li {
-    cursor: pointer;
-    transition-duration: 400ms;
-    transition-timing-function: ease-out;
-  }
+  ul {
+    overflow-y: scroll;
+    max-height: 70%;
+    li {
+      cursor: pointer;
+      transition-duration: 400ms;
+      transition-timing-function: ease-out;
+    }
 
-  li:hover {
-    text-decoration: underline #f86d46;
-    text-underline-offset: 4px;
-    padding: 4px 0;
-    font-size: larger;
+    li:hover {
+      text-decoration: underline #f86d46;
+      text-underline-offset: 4px;
+      padding: 4px 0;
+      font-size: larger;
+    }
   }
 }
 
@@ -187,7 +191,46 @@ h1::after {
   line-height: 1.2rem;
   border-radius: 15px;
   max-height: 600px;
-  overflow-y: scroll;
+}
+
+.tooltips {
+  background-color: #e8522a;
+  z-index: 6;
+  position: relative;
+  width: 100%;
+
+  p {
+    width: 120px;
+    background-color: #173c34;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    top: -38px;
+  }
+
+  #tooltip-delete {
+    right: -5px;
+  }
+
+  #tooltip-add {
+    right: -50px;
+  }
+  #tooltip-edit {
+    right: -25px;
+  }
+
+  p::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #173c34 transparent transparent transparent;
+  }
 }
 
 .recipe-header {
@@ -198,6 +241,7 @@ h1::after {
   button {
     background-color: #2a635e;
     margin-right: 3px;
+
     i {
       transition-duration: 300ms;
       transition-timing-function: ease-in-out;
@@ -226,6 +270,8 @@ i {
   line-height: 1.2rem;
   padding: 10px 100px 10px 0;
   margin-bottom: 15px;
+  overflow-y: scroll;
+  max-height: 70%;
 
   ul {
     margin-bottom: 15px;
@@ -258,6 +304,7 @@ i {
   -webkit-box-shadow: -1px -1px 41px -11px rgba(23, 60, 52, 1);
   -moz-box-shadow: -1px -1px 41px -11px rgba(23, 60, 52, 1);
   box-shadow: -1px -1px 41px -11px rgba(23, 60, 52, 1);
+  max-height: 70vh;
 
   label {
     margin-bottom: 10px;
@@ -266,6 +313,7 @@ i {
   textarea {
     margin-bottom: 15px;
     padding: 10px;
+    max-width: 100%;
   }
 
   .form-header {
